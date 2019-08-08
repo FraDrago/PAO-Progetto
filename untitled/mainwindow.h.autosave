@@ -1,0 +1,22 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+
+namespace Ui {
+class MainWindow;
+}
+
+class completo {
+private:
+    string titolo;
+    unsigned int valutazione;
+
+public:
+    completo(string = "nd", unsigned int = 0);
+    virtual ~completo =default;
+    virtual bool operator==(const completo&) const
+    
+};
+
+#endif // MAINWINDOW_H
