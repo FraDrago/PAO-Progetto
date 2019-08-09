@@ -25,7 +25,8 @@ public:
     void insert(const T);
     void remove(const T); //si rimuove un T costante? CONTROLLARE IN SEGUITO
 
-    unsigned int totale() const;
+    unsigned int getsize() const;
+    //void totale() const;
 
 };
 
@@ -33,7 +34,19 @@ public:
 template <typename T>
 qontainer<T>::nodo::nodo(nodo* p, nodo* n, T i): prev(p), next(n), info(i) {}
 
-//qontainer
+//QONTAINER
+
+template <typename T>
+unsigned int qontainer<T>::getsize() const{
+    return size;
+}
+
+template<typename T> //COME CAVOLO SI FA IL DISTRUTTORE DI UNA LISTA?!?
+qontainer<T>::~qontainer<T>(){
+    if (first)
+        delete first;
+}
+
 template <typename T>
 qontainer<T>::qontainer(nodo* f, nodo* l, unsigned int s): first(f), last(l), size(s) {}
 
@@ -42,11 +55,14 @@ qontainer<T>::qontainer(const qontainer& q): first(q.first), last(q.last), size(
 
 template <typename T>
 void qontainer<T>::insert(const T i){  //credo si possa fare meglio, RIGUARDARE
-    if (!first)
+    if (!first){
+        size=1;
         first=last=new nodo(i, nullptr, nullptr);
+    }
     else {
         nodo* aux=first;
         first=last=new nodo(i, nullptr, aux);
+        size=size+1;
     }
 }
 
@@ -70,8 +86,14 @@ void qontainer<T>::remove(const T i){
 
         }
         delete aux;
+        size=size-1;
     }
 }
+
+/*template <typename T>
+void qontainer<T>::totale() const{
+    while (first)
+}*/ // al momento non so come farlo bene, tecnicamente dovrei usare uno static per far si che un valore sia sempre aggiornato, oppure non serve e inserisco su insert e remove
 
 
 #endif // QONTAINER_H
