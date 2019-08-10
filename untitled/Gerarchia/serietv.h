@@ -4,13 +4,24 @@
 
 class serietv : public completo {
 private:
-    unsigned int episodi;
+    unsigned int episodivisti;
+    unsigned int episoditot;
+    unsigned int durataep;
 
 public:
-    serietv(string = "nd", unsigned int = 0, unsigned int =0);
+    serietv(string = "nd", unsigned int = 0, bool= false , unsigned int = 0, unsigned int =0, unsigned int= 0);
     virtual ~serietv() = default;
 
-    unsigned int getepisodi() const;
+    unsigned int getepisodivisti() const;
+    unsigned int getepisoditot() const;
+    unsigned int getminep() const;
+    unsigned int getmintot() const;
+    unsigned int getminvisti() const;
+
+    void setEpvisti(const unsigned int);
+    void setEptot(const unsigned int);
+    void setdurataep(const unsigned int);
+    void aumentaep();
 
 
 };

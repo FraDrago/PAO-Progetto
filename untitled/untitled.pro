@@ -28,16 +28,15 @@ SOURCES += \
         Gerarchia/completo.cpp \
         Gerarchia/film.cpp \
         Gerarchia/serietv.cpp \
-        completo.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
     Gerarchia/completo.h \
+    Gerarchia/documentario.h \
     Gerarchia/film.h \
     Gerarchia/qontainer.h \
     Gerarchia/serietv.h \
-    completo.h \
     film.h \
     serietv.h
 

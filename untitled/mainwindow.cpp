@@ -1,4 +1,4 @@
-#include "completo.h"
+/*#include "completo.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,3 +12,4 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+*/

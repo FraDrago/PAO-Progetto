@@ -10,7 +10,7 @@ private:
         nodo* prev;
         nodo* next;
         T info;
-        nodo(nodo* =nullptr, nodo* =nullptr, T =T());
+        nodo( T =T(), nodo* =nullptr, nodo* =nullptr);
         ~nodo()=default;
     };
     nodo* first;
@@ -28,14 +28,76 @@ public:
     unsigned int getsize() const;
     //void totale() const;
 
+    class const_iterator{
+        friend class qontainer<T>;
+        private:
+            const qontainer::nodo* punt;
+        public:
+            const_iterator(qontainer::nodo* =nullptr); //punt(n)  {}
+
+            const_iterator& operator++() ;
+            const_iterator& operator++(int) ;
+            const_iterator& operator--();
+            const_iterator& operator--(int);
+            const T& operator*() const;
+
+        };
+
+        const_iterator& begin() const;
+        const_iterator& end() const;
+
+
 };
 
 // NODO
 template <typename T>
-qontainer<T>::nodo::nodo(nodo* p, nodo* n, T i): prev(p), next(n), info(i) {}
+qontainer<T>::nodo::nodo(T i, nodo* p, nodo* n): info(i), prev(p), next(n)  {}
+
+//CONST_ITERATOR
+
+template <typename T>
+qontainer<T>::const_iterator::const_iterator(qontainer::nodo* n): punt(n)  {}
+
+template <typename T>
+typename qontainer<T>::const_iterator& qontainer<T>::begin() const {
+    return new const_iterator(first);
+}
+
+template <typename T>
+typename qontainer<T>::const_iterator& qontainer<T>::end() const {
+    return new const_iterator(nullptr);
+}
+
+template <typename T>
+typename qontainer<T>::const_iterator& qontainer<T>::const_iterator::operator++() {
+
+    return *this;
+}
+
+template <typename T>
+typename qontainer<T>::const_iterator& qontainer<T>::const_iterator::operator++(int ) {
+    const_iterator it(*this);
+    if (punt) punt=punt->next;
+    return it;
+}
+
+template <typename T>
+typename qontainer<T>::const_iterator& qontainer<T>::const_iterator::operator--() {
+    if(punt)   punt=punt->pre;
+    return *this;
+}
+
+template <typename T>
+typename qontainer<T>::const_iterator& qontainer<T>::const_iterator::operator--(int ) {
+    const_iterator it(*this);
+    if(punt)    punt=punt->prev;
+    return it;
+}
+
+
+
 
 //QONTAINER
-
 template <typename T>
 unsigned int qontainer<T>::getsize() const{
     return size;
@@ -61,7 +123,7 @@ void qontainer<T>::insert(const T i){  //credo si possa fare meglio, RIGUARDARE
     }
     else {
         nodo* aux=first;
-        first=last=new nodo(i, nullptr, aux);
+        first=new nodo(i, nullptr, aux);
         size=size+1;
     }
 }
