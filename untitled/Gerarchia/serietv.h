@@ -16,7 +16,7 @@ public:
     unsigned int getepisoditot() const;
     unsigned int getminep() const;
     unsigned int getmintot() const;
-    unsigned int getminvisti() const;
+    unsigned int getmin() const;
 
     void setEpvisti(const unsigned int);
     void setEptot(const unsigned int);

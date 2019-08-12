@@ -16,6 +16,7 @@ public:
     completo(string = "nd", unsigned int = 0, bool= false);
     virtual ~completo() = default;
     virtual bool operator==(const completo&) const;
+    virtual unsigned int getmin() const=0;
 
     string getTitolo() const;
     bool getanimato() const;

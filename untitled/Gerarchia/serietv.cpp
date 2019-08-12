@@ -10,7 +10,7 @@ unsigned int serietv::getmintot() const{
     return durataep*episoditot;
 }
 
-unsigned int serietv::getminvisti() const{
+unsigned int serietv::getmin() const{
     return durataep*episodivisti;
 }
 

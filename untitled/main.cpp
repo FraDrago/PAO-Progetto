@@ -1,4 +1,7 @@
 #include "Gerarchia/completo.h"
+#include "Gerarchia/serietv.h"
+#include "Gerarchia/film.h"
+#include "Gerarchia/documentario.h"
 #include "Gerarchia/qontainer.h"
 #include "Gerarchia/completo.cpp"
 //#include <QApplication>
@@ -9,13 +12,23 @@ int main(/*int argc, char *argv[]*/)
 {
     //QApplication a(argc, argv);
 
-    completo f("ciao", 7);
-    completo t("miao", 10);
+    //string t , unsigned int v, bool a, unsigned int epv, unsigned int ept, unsigned int min
 
-    qontainer<completo> q;
+    serietv f("ciao", 7,false, 5, 10, 24); //120
+    serietv s("ciaa",10,false,10,10, 12); //120
+    serietv t("catto",9,false,1,10, 40); //40
+    //film t("miao", 10);
+    cout<<f.getminep();
+    unsigned int minuti;
+    //completo r;
+    qontainer<serietv> q;
     q.insert(f);
+    q.insert(s);
     q.insert(t);
-
+    //q.tempotot();
+    minuti=q.minutivisti();
+    cout<<endl<<"ecco il tempo: "<<minuti;
+   // cout<<q.first->info.getTitolo();
 
     cout<<endl<<q.getsize()<<endl<<endl;
     //cout<<endl<<q.first->info.getTitolo()<<endl<<endl;
