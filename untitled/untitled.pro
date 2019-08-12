@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         Gerarchia/completo.cpp \
+        Gerarchia/documentario.cpp \
         Gerarchia/film.cpp \
         Gerarchia/serietv.cpp \
         main.cpp \

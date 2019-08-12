@@ -9,6 +9,8 @@ class qontainer{
     friend class const_iterator;
     friend class iterator;
 private:
+
+    //                         INIZIO CLASSE NODO
     class nodo{
     public:
         nodo* prev;
@@ -17,23 +19,17 @@ private:
         nodo( T =T(), nodo* =nullptr, nodo* =nullptr);
         ~nodo()=default;
     };
+
+    //      OGGETTI DEL QONTAINER
     nodo* first;
     nodo* last;
     unsigned int size;
-    // unsigned int minuti;
 public:
     qontainer(nodo* =nullptr, nodo* =nullptr, unsigned int =0);
     qontainer(const qontainer&);
     ~qontainer();
 
-    void insert(const T&);
-    void remove(const T&); //si rimuove un T costante? CONTROLLARE IN SEGUITO
-
-
-
-
-    void push_back(const T&);  // SE NON USATO TOGLIERE
-
+    //                         INIZIO CLASSE ITERATOR
     class iterator{
         friend class qontainer;
     private:
@@ -50,6 +46,7 @@ public:
         nodo* operator->();
     };
 
+    //                         INIZIO CLASSE CONST_ITERATOR
     class const_iterator{
         friend class qontainer<T>;
         private:
@@ -74,10 +71,13 @@ public:
     const_iterator begin() const;
     const_iterator& end() const;
 
+    void insert(const T&);
+    void remove(const T&); //si rimuove un T costante? CONTROLLARE IN SEGUITO
+    void push_back(const T&);  // SE NON USATO TOGLIERE
 
     unsigned int getsize() const;
     unsigned int minutivisti() const;
-    T& ricerca() const;
+    qontainer ricerca(string) ;
 
 };
 
@@ -213,37 +213,25 @@ typename qontainer<T>::const_iterator& qontainer<T>::end() const {
 }
 
 
-/*template <typename T>
-T& qontainer<T>::const_iterator::operator*() const{
-    return  punt->info;
-}*/
-
-
-
-
-
-
-
-
-
-
-/*template <typename T>
-typename qontainer<T>::const_iterator& qontainer<T>::const_iterator::operator--() {
-    if(punt)   punt=punt->pre;
-    return *this;
-}
-
-template <typename T>
-typename qontainer<T>::const_iterator& qontainer<T>::const_iterator::operator--(int ) {
-    const_iterator it(*this);
-    if(punt)    punt=punt->prev;
-    return it;
-}*/
 
 
 
 
 //QONTAINER
+
+template <typename T>
+qontainer<T> qontainer<T>::ricerca(string nome) {
+    qontainer<T> aux;
+    for (auto it=begin();it!=end();it++) {
+        if (nome==(*it).getTitolo())
+            aux.insert(*it);
+        /*else {
+            throw qualcosa
+        }*/
+    }
+    return aux;
+}
+
 
 template<typename T>
 void qontainer<T>::push_back(const T& t){  // SE NON USATO TOGLIERE

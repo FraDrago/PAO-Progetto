@@ -1,10 +1,17 @@
 #include "completo.h"
 
+
 completo::completo(string t , unsigned int v, bool a) : titolo(t) , valutazione(v), animato(a) {}
 
 bool completo::operator==(const completo& comp) const{
     return (titolo == comp.titolo);
 }
+
+bool completo::operator!=(const completo& comp) const{
+    return (titolo != comp.titolo);
+}
+
+
 
 string completo::getTitolo() const {
     return titolo;
@@ -28,3 +35,12 @@ void completo::setValutazione(const unsigned int b) {
 void completo::setAnimato(const bool a){
     animato=a;
 }
+
+
+/*std::ostream& operator<<(std::ostream& os, const completo& c){
+    string a="\nTitolo: ";
+    return os<<a<<c.getTitolo()
+            << "\n" << c.getValutazione()
+            // << "\nAnimato: " << c.getanimato();
+}
+*/
