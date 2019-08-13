@@ -16,7 +16,7 @@ private:
         nodo* prev;
         nodo* next;
         T info;
-        nodo( T =T(), nodo* =nullptr, nodo* =nullptr);
+        nodo( T =T("aaa",7), nodo* =nullptr, nodo* =nullptr);
         ~nodo()=default;
     };
 
@@ -78,8 +78,18 @@ public:
     unsigned int getsize() const;
     unsigned int minutivisti() const;
     qontainer ricerca(string) ;
+    bool esiste();
 
 };
+
+template <typename T>
+bool qontainer<T>::esiste(){
+    if (first)
+        return  true;
+    else {
+        return false;
+    }
+}
 
 // NODO
 template <typename T>
@@ -223,7 +233,7 @@ template <typename T>
 qontainer<T> qontainer<T>::ricerca(string nome) {
     qontainer<T> aux;
     for (auto it=begin();it!=end();it++) {
-        if (nome==(*it).getTitolo())
+        if (nome==(*it)->getTitolo())
             aux.insert(*it);
         /*else {
             throw qualcosa
