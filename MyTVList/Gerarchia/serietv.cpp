@@ -1,6 +1,16 @@
 #include "serietv.h"
 
-serietv::serietv(string t , unsigned int v, bool a, unsigned int epv, unsigned int ept, unsigned int min): completo (t,v,a), episodivisti(epv), episoditot(ept), durataep(min) {}
+serietv::serietv(string t , unsigned int v, bool a, unsigned int epv, unsigned int ept, unsigned int min, genere g):
+    completo (t,v,a), episodivisti(epv), episoditot(ept), durataep(min), tipo(g) {}
+
+serietv::serietv(serietv * f): completo (f->getTitolo(),f->getValutazione(),f->getanimato()),
+    episodivisti(f->episodivisti), episoditot(f->episoditot), durataep(f->durataep), tipo(f->tipo) {}
+
+
+unsigned int serietv::getepisodivisti() const{ return episodivisti; }
+unsigned int serietv::getepisoditot() const{ return episoditot; }
+
+//string serietv::getTitolo() const{    return "ciao"; }
 
 unsigned int serietv::getminep() const{
     return durataep;
@@ -30,8 +40,6 @@ void serietv::aumentaep(){
     if (episodivisti<episoditot)
         episodivisti++;
 }
-<<<<<<< d5c55625f8df057bf058a41a04744bc39667aa3b:untitled/Gerarchia/serietv.cpp
-=======
 
 string serietv::getTipoTV() const{return "serietv";}
 
@@ -76,4 +84,3 @@ serietv::genere serietv::convertgenere(string n){
 bool serietv::operator==(const serietv & c) const{
     return completo::operator==(c);
 }
->>>>>>> FINALE:MyTVList/Gerarchia/serietv.cpp

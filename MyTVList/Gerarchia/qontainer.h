@@ -12,12 +12,11 @@ private:
 
     //                         INIZIO CLASSE NODO
     class nodo{
-    public:
-        nodo* prev;
-        nodo* next;
+    public:  
         T info;
-        nodo( T =T("aaa",7), nodo* =nullptr, nodo* =nullptr);
-        ~nodo()=default;
+        nodo* next;
+        nodo( T =T(), nodo* =nullptr);
+        ~nodo();
     };
 
     //      OGGETTI DEL QONTAINER
@@ -25,9 +24,12 @@ private:
     nodo* last;
     unsigned int size;
 public:
+    //qontainer();
     qontainer(nodo* =nullptr, nodo* =nullptr, unsigned int =0);
-    qontainer(const qontainer&);
+    qontainer( qontainer* );
     ~qontainer();
+    const T& operator[](int);
+
 
     //                         INIZIO CLASSE ITERATOR
     class iterator{
@@ -72,15 +74,43 @@ public:
     const_iterator end() const;
 
     void insert(const T&);
-    void remove(const T&); //si rimuove un T costante? CONTROLLARE IN SEGUITO
+    void remove(T); //si rimuove un T costante? CONTROLLARE IN SEGUITO
+    void remove(int);
     void push_back(const T&);  // SE NON USATO TOGLIERE
 
+
+    T& at(unsigned int) ;
     unsigned int getsize() const;
-    unsigned int minutivisti() const;
-    qontainer ricerca(string) ;
     bool esiste();
+    void eraseall() ;
+
 
 };
+
+
+
+template<typename T>
+void qontainer<T>::eraseall() { //testare
+    if (size){
+        size=size-1;
+        delete first;
+    }
+    first=last=nullptr;
+
+
+}
+
+template <typename T>
+T& qontainer<T>::at(unsigned int a) {
+
+    auto it=begin();
+    while (it!=end() && size>=a && a!=0)
+    {
+        it++;
+        a--;
+    }
+    return *it;
+}
 
 template <typename T>
 bool qontainer<T>::esiste(){
@@ -91,9 +121,23 @@ bool qontainer<T>::esiste(){
     }
 }
 
+template <typename T>
+const T& qontainer<T>::operator[](int n){
+    auto it=begin();
+    while (it!=end() && n!=0)
+    {
+        it++;
+        n--;
+    }
+    return *it;
+}
+
 // NODO
 template <typename T>
-qontainer<T>::nodo::nodo(T i, nodo* p, nodo* n): info(i), prev(p), next(n)  {}
+qontainer<T>::nodo::nodo(T i, nodo* n): info(i), next(n)  {}
+
+template<typename T>
+qontainer<T>::nodo::~nodo() {if (info) delete info;}
 
 //                                                ITERATOR
 
@@ -130,13 +174,13 @@ typename qontainer<T>::iterator qontainer<T>::iterator::operator++(int){
 }
 
 
-//6)operatore *
+//6)operatore ->
 template <typename T>
 typename qontainer<T>::nodo* qontainer<T>::iterator::operator->() {
     return punt;
 }
 
-//7) operatore ->
+//7) operatore *
 template <typename T>
 T& qontainer<T>::iterator::operator*() {
     return  punt->info;
@@ -233,19 +277,17 @@ typename qontainer<T>::const_iterator qontainer<T>::end() const {
 
 //QONTAINER
 
+
 template <typename T>
-qontainer<T> qontainer<T>::ricerca(string nome) {
-    qontainer<T> aux;
-    for (auto it=begin();it!=end();it++) {
-        if (nome==(*it)->getTitolo())
-            aux.insert(*it);
-        /*else {
-            throw qualcosa
-        }*/
+qontainer<T>::qontainer(nodo* f, nodo* l, unsigned int s): first(f), last(l), size(s) {}
+
+template <typename T>
+qontainer<T>::qontainer( qontainer* q) {
+    auto it=q->begin();
+    while(it!=q->end())
+    {
+        this->insert(*q);
     }
-<<<<<<< d5c55625f8df057bf058a41a04744bc39667aa3b:untitled/Gerarchia/qontainer.h
-    return aux;
-=======
 }
 
 template<typename T> //COME CAVOLO SI FA IL DISTRUTTORE DI UNA LISTA?!?
@@ -257,8 +299,8 @@ qontainer<T>::~qontainer<T>(){
         delete b;
     }
     last = nullptr;
->>>>>>> FINALE:MyTVList/Gerarchia/qontainer.h
 }
+
 
 
 template<typename T>
@@ -267,83 +309,46 @@ void qontainer<T>::push_back(const T& t){  // SE NON USATO TOGLIERE
     last=last->next;
 }
 
-template <typename T>
-unsigned int qontainer<T>::minutivisti() const{
 
-    unsigned int min=0;
-    for (auto it=begin();it!=end();it++) {
-        min=min+(*it).getmin();
-    }
-    return min;
-}
 
-/*template <typename T>
-unsigned int qontainer<T>::tempotot() const{
-    unsigned int tempo=0;
-    for (auto it=begin();it!=end(); it++) {
-        tempo=(*it)->getmin()+tempo;
-    }
-    return tempo;
-}*/
 
 template <typename T>
 unsigned int qontainer<T>::getsize() const{
     return size;
 }
 
-template<typename T> //COME CAVOLO SI FA IL DISTRUTTORE DI UNA LISTA?!?
-qontainer<T>::~qontainer<T>(){
-    if (first)
-        delete first;
-}
 
-template <typename T>
-qontainer<T>::qontainer(nodo* f, nodo* l, unsigned int s): first(f), last(l), size(s) {}
 
-template <typename T>
-qontainer<T>::qontainer(const qontainer& q): first(q.first), last(q.last), size(q.size) {}
 
 template <typename T>
 void qontainer<T>::insert(const T& i){  //credo si possa fare meglio, RIGUARDARE
     if (!first){
         size=1;
-        first=last=new nodo(i, nullptr, nullptr);
+        first=last=new nodo(i, nullptr);
     }
     else {
-<<<<<<< d5c55625f8df057bf058a41a04744bc39667aa3b:untitled/Gerarchia/qontainer.h
-        nodo* aux=first;
-        first=new nodo(i, nullptr, aux);
-=======
 
         first=new nodo(i, first);
->>>>>>> FINALE:MyTVList/Gerarchia/qontainer.h
         size=size+1;
     }
 }
 
 template <typename T>
-void qontainer<T>::remove(const T& i){
+void qontainer<T>::remove( T i){
+    nodo* prec=nullptr;
     nodo* aux=first;
-<<<<<<< d5c55625f8df057bf058a41a04744bc39667aa3b:untitled/Gerarchia/qontainer.h
-    while (aux && !(aux->info==i)) //finchè esiste aux e le info sono diverse va avanti
-=======
+    int s=size;
 
-    if (first==last && ((*(aux->info))==(*i)))
-        first=last=nullptr;
-    while (aux && !((*(aux->info))==(*i))) //finchè esiste aux e le info sono diverse va avanti
+
+    while (aux && !((*(aux->info))==(*i)) && s>1) //finchè esiste aux e le info sono diverse va avanti
     {
         prec=aux;
->>>>>>> FINALE:MyTVList/Gerarchia/qontainer.h
         aux=aux->next;
+        s=s-1;
+    }
     //devo dividere in diversi casi: 1. se next non c'è quindi è alla fine 2: se prev non c'è quindi è all'inizio 3: se è in mezzo quindi prev e next ci sono
     if (aux)
     {
-<<<<<<< d5c55625f8df057bf058a41a04744bc39667aa3b:untitled/Gerarchia/qontainer.h
-        if (!(aux->next))
-            last=last->prev;
-
-        if (!(aux->prev))
-=======
         if (!(aux->next)){
             last=prec;
             last->next=nullptr;
@@ -365,7 +370,7 @@ void qontainer<T>::remove(int i){
     nodo* prec=nullptr;
     nodo* aux=first;
 
-    while (aux && i>0)
+    while (aux && i>=0)
     {
         prec=aux;
         aux=aux->next;
@@ -379,12 +384,10 @@ void qontainer<T>::remove(int i){
             last->next=nullptr;
         }
         else if (!prec)
->>>>>>> FINALE:MyTVList/Gerarchia/qontainer.h
             first=first->next;
-
-        if (aux->next && aux->prev)
+        else if (aux->next && prec)
         {
-            aux->prev->next=aux->next;
+            prec->next=aux->next;
 
         }
         delete aux;
@@ -392,10 +395,6 @@ void qontainer<T>::remove(int i){
     }
 }
 
-/*template <typename T>
-void qontainer<T>::totale() const{
-    while (first)
-}*/ // al momento non so come farlo bene, tecnicamente dovrei usare uno static per far si che un valore sia sempre aggiornato, oppure non serve e inserisco su insert e remove
 
 
 #endif // QONTAINER_H

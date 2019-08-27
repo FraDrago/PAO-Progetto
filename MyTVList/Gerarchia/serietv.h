@@ -7,27 +7,28 @@ private:
     unsigned int episodivisti;
     unsigned int episoditot;
     unsigned int durataep;
+    genere tipo;
 
 public:
-    serietv(string = "nd", unsigned int = 0, bool= false , unsigned int = 0, unsigned int =0, unsigned int= 0);
+    serietv(string, unsigned int = 0, bool= false , unsigned int = 0, unsigned int =0, unsigned int= 0, genere=Generale);
+    serietv(serietv* = nullptr);
     virtual ~serietv() = default;
 
+    virtual string getGenere() const;
     unsigned int getepisodivisti() const;
     unsigned int getepisoditot() const;
     unsigned int getminep() const;
     unsigned int getmintot() const;
     unsigned int getmin() const;
-<<<<<<< d5c55625f8df057bf058a41a04744bc39667aa3b:untitled/Gerarchia/serietv.h
-=======
     string getTipoTV() const final;
-   // virtual string getTitolo() const;
     bool operator==(const serietv&) const;
->>>>>>> FINALE:MyTVList/Gerarchia/serietv.h
 
     void setEpvisti(const unsigned int);
     void setEptot(const unsigned int);
     void setdurataep(const unsigned int);
     void aumentaep();
+    static string converstring(genere);
+    static genere convertgenere(string);
 
 
 };
